@@ -1,0 +1,12 @@
+# ════════════════════════════════════════════════
+#  KORD API — Variables d'environnement
+#  Colle tes vraies valeurs ici
+#  Ne jamais committer ce fichier sur GitHub
+# ════════════════════════════════════════════════
+
+# Supabase — Settings > API > service_role (pas la clé anon !)
+SUPABASE_URL=https://dtnkqxbyvnsybddbyelv.supabase.co
+SUPABASE_SERVICE_KEY=sb_publishable_RqkmwDHNRAmxWvIwiBq39w_EGRyJT2f
+
+# Anthropic Claude — console.anthropic.com > API Keys
+ANTHROPIC_API_KEY=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
