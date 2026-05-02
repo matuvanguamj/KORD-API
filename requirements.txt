@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-dotenv
+supabase
+pandas
+numpy
+anthropic
+python-multipart
+httpx
+openpyxl
+reportlab
