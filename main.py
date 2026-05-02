@@ -80,9 +80,20 @@ async def analyze(req: AnalyzeRequest):
 
     # ── 2. Télécharger le fichier depuis Supabase Storage ──
     try:
-        response = sb.storage.from_("client-files").download(req.file_path)
-        file_bytes = response
-    except Exception as e:
+    file_bytes = sb.storage.from_("client-files").download(req.file_path)
+    if not file_bytes:
+        raise Exception("Fichier vide")
+except Exception as e:
+    # Essai alternatif avec URL signée
+    try:
+        signed = sb.storage.from_("client-files").create_signed_url(req.file_path, 60)
+        import httpx
+        r = httpx.get(signed["signedURL"])
+        file_bytes = r.content
+    except Exception as e2:
+        print(f"Erreur téléchargement : {e2}")
+        sb.table("submissions").update({"status":"erreur"}).eq("id", req.submission_id).execute()
+        raise HTTPException(status_code=500, detail=f"Impossible de télécharger le fichier : {str(e2)}")
         print(f"Erreur téléchargement : {e}")
         sb.table("submissions").update(
             {"status": "erreur"}
